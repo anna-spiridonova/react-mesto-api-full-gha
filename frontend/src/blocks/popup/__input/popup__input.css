@@ -1,0 +1,7 @@
+.popup__input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-weight: 400;
+  border: 0;
+}

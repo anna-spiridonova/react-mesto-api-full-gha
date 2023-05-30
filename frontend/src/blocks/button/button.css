@@ -1,0 +1,12 @@
+.button {
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity .3s ease;
+}
+
+.button:not([disabled]):hover {
+  opacity: .6;
+}

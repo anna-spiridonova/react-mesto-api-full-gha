@@ -1,0 +1,17 @@
+.profile__avatar-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  opacity: 0;
+  background-image: url(../../../images/ava_edit_icon.svg);
+  background-size: 26px 26px;
+  background-position: center;
+}
+
+.profile__avatar-button:not([disabled]):hover {
+  opacity: 1;
+}

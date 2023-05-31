@@ -1,4 +1,4 @@
-const baseUrl = "https://auth.nomoreparties.co";
+const baseUrl = "https://mesto.project.nomoredomains.rocks";
 
 export const handleResponse = (res) => {
   if (res.ok) {

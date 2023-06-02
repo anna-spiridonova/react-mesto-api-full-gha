@@ -103,8 +103,16 @@ const login = (req, res, next) => {
           res.cookie('jwt', token, {
             httpOnly: true,
             maxAge: 3600000 * 24 * 7,
+            sameSite: true,
           });
-          return res.send({ token });
+          return res.send({
+            email: user.email,
+            name: user.name,
+            about: user.about,
+            avatar: user.avatar,
+            _id: user._id,
+          });
+          // return res.send({ token });
         });
     })
     .catch(next);

@@ -19,13 +19,15 @@ class Api {
 
   getInitialCards() {
     return this._request(`${this._baseUrl}/cards`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     })
   }
 
   addNewCard(name, link) {
     return this._request(`${this._baseUrl}/cards`, {
       headers: this._headers,
+      credentials: 'include',
       method: 'POST',
       body: JSON.stringify({
         name: name,
@@ -37,19 +39,22 @@ class Api {
   deleteCard(cardId) {
     return this._request(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
+      credentials: 'include',
       method: 'DELETE'
     })
   }
 
   getUserInfo() {
     return this._request(`${this._baseUrl}/users/me`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include',
     })
   }
 
   editProfileInfo(name, about) {
     return this._request(`${this._baseUrl}/users/me`, {
       headers: this._headers,
+      credentials: 'include',
       method: 'PATCH',
       body: JSON.stringify({
         name: name,
@@ -61,6 +66,7 @@ class Api {
   editAvatar(avatar) {
     return this._request(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
+      credentials: 'include',
       method: 'PATCH',
       body: JSON.stringify({
         avatar: avatar
@@ -72,11 +78,13 @@ class Api {
     if (isLiked) {
       return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
         headers: this._headers,
+        credentials: 'include',
         method: 'PUT',
       })
     }else {
       return this._request(`${this._baseUrl}/cards/${cardId}/likes`, {
         headers: this._headers,
+        credentials: 'include',
         method: 'DELETE',
       })
     }
@@ -84,9 +92,9 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: 'https://mesto.project.nomoredomains.rocks',
+  // baseUrl: 'http://localhost:3001',
+  baseUrl: 'https://api.mesto.project.nomoredomains.rocks',
   headers: {
-    //authorization: 'fb38f326-6de2-4957-880b-2bd78fd7f96a',
     'Content-Type': 'application/json'
   }
 });

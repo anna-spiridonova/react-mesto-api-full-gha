@@ -161,8 +161,8 @@ function App() {
   function handleLoginSubmit (email, password) {
     auth.authorize(email, password)
     .then((res) => {
-      if(res.token) {
-        localStorage.setItem('jwt', res.token);
+      if(res) {
+        localStorage.setItem('userId', res._id);
       };
       handleLogin(email);
       navigate("/")
@@ -173,7 +173,7 @@ function App() {
   }
 
   function handleRegisterSubmit (email, password) {
-    auth.register(email, password)
+    auth.register(email, password) 
       .then(() => {
         setIsSuccess(true);
         navigate("/sign-in")
@@ -186,12 +186,12 @@ function App() {
   }
 
   function singOut() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('userId');
     setLoggedIn(false)
   }
 
   function tokenCheck() {
-    const jwt = localStorage.getItem('jwt');
+    const jwt = localStorage.getItem('userId');
     if(!jwt) {
       return
     };

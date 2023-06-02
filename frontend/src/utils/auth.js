@@ -1,4 +1,6 @@
-const baseUrl = "https://mesto.project.nomoredomains.rocks";
+const baseUrl = "https://api.mesto.project.nomoredomains.rocks";
+// const baseUrl = 'http://localhost:3001';
+
 
 export const handleResponse = (res) => {
   if (res.ok) {
@@ -26,6 +28,7 @@ export const register = (email, password) => {
 export const authorize = (email, password) => {
   return request("/signin", {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -36,9 +39,10 @@ export const authorize = (email, password) => {
 export const getContent = (token) => {
   return request("/users/me", {
     method: 'GET',
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
-      "Authorization" : `Bearer ${token}`
+      // "Authorization" : `Bearer ${token}`
     }
   })
 };

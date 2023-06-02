@@ -198,7 +198,7 @@ function App() {
     auth.getContent(jwt)
       .then((res) => {
         if(res) {
-          handleLogin(res.data.email);
+          handleLogin(res.email);
           navigate("/")
         }
       })

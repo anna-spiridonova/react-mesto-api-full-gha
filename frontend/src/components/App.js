@@ -81,19 +81,51 @@ function App() {
     }
   
   //запросы к api
+  function tokenCheck() {
+    const jwt = localStorage.getItem('userId');
+    if(!jwt) {
+      return
+    };
+    auth.getContent(jwt)
+      .then((res) => {
+        if(res) {
+          handleLogin(res.email);
+          navigate("/")
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      });
+  }
+
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-    .then(([resUserInfo, resInitialCards]) => {
-      setCurrentUser(resUserInfo)
-      setCards(resInitialCards);
-    })
-    .catch((err) => {
-      console.log(err)
-    });
-  }, []);
+    tokenCheck()
+    if (loggedIn) {
+      api.getInitialCards()
+        .then((res) => {
+          setCards(res.reverse());
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    tokenCheck()
+    if (loggedIn) {
+      api.getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+    }
+  }, [loggedIn]);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);    
+    const isLiked = card.likes.some(id => id === currentUser._id);     
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -185,40 +217,23 @@ function App() {
       .finally(() => setIsTooltipPopupOpen(true))
   }
 
-  function singOut() {
-    localStorage.removeItem('userId');
-    setLoggedIn(false)
-  }
-
-  function tokenCheck() {
-    const jwt = localStorage.getItem('userId');
-    if(!jwt) {
-      return
-    };
-    auth.getContent(jwt)
-      .then((res) => {
-        if(res) {
-          handleLogin(res.email);
-          navigate("/")
-        }
+  function signOut() {
+    auth.signOut()
+      .then(() => {
+        localStorage.removeItem('userId');
+        setLoggedIn(false)
       })
       .catch((err) => {
         console.log(err)
       });
   }
 
-  useEffect(() => {
-    tokenCheck()
-  }, [])
-
-
-
   return (
     <CurrentUserContext.Provider value = {currentUser}>
       <div className="root">
         <Header
           email={email}
-          onSingOut={singOut}
+          onSignOut={signOut}
         />
         
         <InfoTooltip

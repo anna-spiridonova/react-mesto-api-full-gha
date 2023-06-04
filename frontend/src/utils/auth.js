@@ -36,13 +36,22 @@ export const authorize = (email, password) => {
   })
 };
 
-export const getContent = (token) => {
+export const signOut = () => {
+  return request("/signout", {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+};
+
+export const getContent = () => {
   return request("/users/me", {
     method: 'GET',
     credentials: 'include',
     headers: {
       "Content-Type": "application/json",
-      // "Authorization" : `Bearer ${token}`
     }
   })
 };

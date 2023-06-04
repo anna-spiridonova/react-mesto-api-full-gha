@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.92.10
+IP 51.250.92.10
 
 Frontend https://mesto.project.nomoredomains.rocks
 
